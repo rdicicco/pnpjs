@@ -11,6 +11,7 @@ import { sp } from "@pnp/sp";
 import "@pnp/sp/webs";
 import "@pnp/sp/files";
 import "@pnp/sp/folders";
+import { Web } from "@pnp/sp/webs";
 
 const blob: Blob = await sp.web.getFileByServerRelativeUrl("/sites/dev/documents/file.avi").getBlob();
 
@@ -22,6 +23,11 @@ const text: string = await sp.web.getFileByServerRelativeUrl("/sites/dev/documen
 
 // all of these also work from a file object no matter how you access it
 const text2: string = await sp.web.getFolderByServerRelativeUrl("/sites/dev/documents").files.getByName("file.txt").getText();
+
+// to access a file in another site collection
+let siteUrl = "https://mytenant.sharepoint.com/sites/dev3";
+let web = Web(siteUrl);
+const text3: string = await web.getFileByServerRelativeUrl("/sites/dev3/documents/file.txt").getText();
 ```
 
 ### getFileByUrl
